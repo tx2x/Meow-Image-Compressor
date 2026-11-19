@@ -11,7 +11,6 @@
 **Private, offline and unlimited image compression that runs entirely in your browser.**
 A free, open-source alternative to online compressors: no uploads, no accounts, no file-count or file-size limits.
 
-<!-- Replace docs/screenshot.png with a real screenshot (suggested size: 1600×1000, dark theme). -->
 ![Meow Image Compressor screenshot](docs/screenshot.png)
 
 ## Features
@@ -37,7 +36,7 @@ A free, open-source alternative to online compressors: no uploads, no accounts, 
 - 🛡️ Never makes a file bigger: if the result is larger than a same-format original, the original is kept.
 - 📋 Drag & drop, file picker, clipboard paste, per-file remove (✕), batch **ZIP** download.
 - 🌗 Dark and light themes with a one-click switch (Auto / Light / Dark; Auto follows your system).
-- 📲 **Installable PWA**: install it like a native app; it works offline after the first load.
+- 📲 **Optional offline mode (PWA)**: opt in with one click in the footer to cache the app in your browser so it opens without a server or internet. Off by default, removable at any time.
 
 ## Quick start
 
@@ -49,7 +48,8 @@ cd Meow-Image-Compressor
 npm install
 npm run dev        # development server
 npm run build      # production build in ./dist
-npm run preview    # serve the production build
+npm run preview    # serve the production build (stop with Ctrl+C)
+npm run preview:lan  # same, but reachable from other devices on your network
 ```
 
 ### Using it fully offline
@@ -63,11 +63,42 @@ npx serve dist        # or: python -m http.server -d dist
 
 You can also host it on GitHub Pages, a NAS or an intranet.
 
-### Install as an app (PWA)
+### Offline mode and installing as an app (optional)
 
-Open the served site in Chrome, Edge or Safari and choose **Install** / **Add to Home Screen**.
-On the first visit all files (about 10 MB, including every codec) are cached, so the app keeps working with no connection.
-Browsers only allow installation from `https://` or `http://localhost`; a plain `http://<LAN-IP>` works as a normal website but is not installable.
+Offline mode is **off by default**: nothing is cached and no background worker is registered until you ask for it.
+Open the served site and click **Enable offline mode** in the footer. About 10 MB (including every codec) is cached in your browser, and the app then opens
+without a server or internet. You can also **Install** it from the browser menu (Chrome, Edge) or **Add to Home Screen** (Safari).
+Click **Disable and clear cache** at any time to turn it off again.
+Browsers only offer this on `https://` or `http://localhost`; a plain `http://<LAN-IP>` works as a normal website without offline mode.
+
+## Stopping the server
+
+`npm run dev` and `npm run preview` are ordinary foreground processes. They are never installed as a service, never start with your system, and stop when you:
+
+- press **Ctrl+C** in the terminal where they run, or
+- close that terminal window.
+
+If a port is still busy (dev uses 5173, preview uses 4173):
+
+```bash
+# macOS / Linux
+lsof -i :4173          # note the PID
+kill <PID>
+
+# Windows (PowerShell)
+netstat -ano | findstr :4173
+taskkill /PID <PID> /F
+```
+
+### The page still opens after the server is stopped or the PC is restarted?
+
+That is the browser's offline cache (Offline mode / an installed app), not a running server. To turn it off:
+
+1. Click **Disable and clear cache** in the footer of the app, **or**
+2. Chrome / Edge: press F12 → **Application** → **Service workers** → *Unregister*, then **Storage** → *Clear site data*. Firefox: DevTools → **Storage**, or clear site data for `localhost` in the browser settings.
+3. If you installed it as an app, uninstall it (`chrome://apps` → right-click → *Remove*), and check that it is not set to start when you sign in.
+
+If you ran an earlier test build that cached the app automatically, just open the app once while the server is running: it removes the old cache by itself.
 
 ## Usage
 
@@ -103,7 +134,7 @@ docs/                 Screenshot
 - Recent Chromium, Firefox and Safari. Input formats are whatever your browser can decode (PNG, JPEG, WebP, GIF, BMP, SVG, usually AVIF).
 - Animated GIFs are flattened to the first frame. SVG files can also be rasterised to any bitmap format.
 - Very large images are limited by browser memory; AVIF and JPEG XL are CPU-intensive.
-- Most browsers cannot display `.jxl` files; the in-app preview decodes them for you.
+- Some browsers cannot display `.jxl` files; the in-app preview decodes them for you.
 
 ## Roadmap
 

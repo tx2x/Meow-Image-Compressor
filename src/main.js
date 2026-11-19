@@ -2,6 +2,7 @@ import './style.css';
 import { zipSync } from 'fflate';
 import { openCompare } from './compare.js';
 import { initTheme } from './theme.js';
+import { initOffline } from './offline.js';
 
 const $ = s => document.querySelector(s);
 const EXT = { png: 'png', pngq: 'png', jpeg: 'jpg', webp: 'webp', avif: 'avif', jxl: 'jxl', svg: 'svg' };
@@ -175,4 +176,4 @@ $('#zip').onclick = async () => {
   save(new Blob([zipSync(files, { level: 0 })], { type: 'application/zip' }), 'meow-compressed.zip');
 };
 hint(); summary(); initTheme();
-if ('serviceWorker' in navigator && import.meta.env.PROD) addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+initOffline();
