@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b0d12">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>try{var t=localStorage.getItem('meow-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Meow Image Compressor – private, offline, unlimited</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<header>
+  <div class="theme" role="group" aria-label="Theme">
+    <button data-t="auto" title="Match system" aria-label="Match system theme">◐</button>
+    <button data-t="light" title="Light" aria-label="Light theme">☀</button>
+    <button data-t="dark" title="Dark" aria-label="Dark theme">☾</button>
+  </div>
+  <h1><img class="logo" src="/icon.svg" alt="">Meow Image Compressor</h1><p>Unlimited, private image compression. Runs 100% on your device.</p></header>
+<main>
+  <section class="opts">
+    <label>Format
+      <select id="fmt">
+        <option value="" selected disabled>Select format...</option>
+        <option value="pngq">PNG (libimagequant)</option><option value="png">PNG (UPNG)</option>
+        <option value="jpeg">JPEG (MozJPEG)</option><option value="webp">WebP</option>
+        <option value="avif">AVIF</option><option value="jxl">JPEG XL</option><option value="svg">SVG (SVGO)</option>
+      </select></label>
+    <label>Quality <b id="qv">80</b>
+      <input id="q" type="range" min="1" max="100" value="80"></label>
+    <label>Max side (px, 0 = off)
+      <input id="max" type="number" min="0" value="0"></label>
+  </section>
+  <p class="hint" id="hint"></p>
+  <label id="drop" class="drop" tabindex="0">
+    <input id="file" type="file" accept="image/*" multiple hidden>
+    <strong>Drop images here</strong><span>or click to browse · paste with Ctrl+V · no limits</span>
+  </label>
+  <section id="bar" class="bar" hidden>
+    <span id="sum"></span>
+    <span class="acts"><button id="proc">Process all</button><button id="zip">Download all (ZIP)</button><button id="clear" class="ghost">Clear</button></span>
+  </section>
+  <ul id="list"></ul>
+</main>
+<footer>No uploads. No tracking. No network required after build. · <a href="https://github.com/tx2x/Meow-Image-Compressor/">GitHub</a></footer>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
