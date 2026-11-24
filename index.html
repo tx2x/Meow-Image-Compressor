@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#0b0d12">
+<meta name="theme-color" content="#181926">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script>try{var t=localStorage.getItem('meow-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
@@ -30,8 +30,18 @@
       </select></label>
     <label>Quality <b id="qv">80</b>
       <input id="q" type="range" min="1" max="100" value="80"></label>
-    <label>Max side (px, 0 = off)
-      <input id="max" type="number" min="0" value="0"></label>
+    <label>Color profile
+      <select id="icc" title="What to do with an embedded ICC profile such as Display P3">
+        <option value="srgb">Convert to sRGB</option>
+        <option value="keep">Keep original profile</option>
+      </select></label>
+    <label class="resize" title="Also applies to SVG files converted to bitmaps. For SVG the size is exact (vector scaling, no blur); for bitmaps, Max side only shrinks.">Resize
+      <span class="pair">
+        <select id="rmode"><option value="none">Original size</option><option value="pct">Scale (%)</option><option value="max">Max side (px)</option></select>
+        <input id="rval" type="number" value="50" min="1" max="400" hidden aria-label="Resize value">
+      </span></label>
+    <label class="sw"><input id="meta" type="checkbox">Keep metadata (EXIF, XMP)</label>
+    <details class="adv" id="advbox"><summary>Advanced options <b id="advname"></b></summary><div id="adv" class="advgrid"></div></details>
   </section>
   <p class="hint" id="hint"></p>
   <label id="drop" class="drop" tabindex="0">
@@ -45,7 +55,7 @@
   <ul id="list"></ul>
 </main>
 <footer>
-  <p id="offline-row" class="offline" hidden><span id="offline-note"></span> <button id="offline" class="ghost" disabled></button></p>No uploads. No tracking. No network required after build. · <a href="https://github.com/tx2x/Meow-Image-Compressor/">GitHub</a></footer>
+  <p id="offline-row" class="offline" hidden><span id="offline-note"></span> <button id="offline" class="ghost" disabled></button></p>No uploads. No tracking. No network required after build. · <a href="https://github.com/">GitHub</a></footer>
 <script type="module" src="/src/main.js"></script>
 </body>
 </html>

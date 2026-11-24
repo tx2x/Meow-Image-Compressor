@@ -1,15 +1,26 @@
 {
   "name": "meow-image-compressor",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "Private, offline, unlimited image compressor. PNG, JPEG, WebP, AVIF, JPEG XL and SVG via WebAssembly. Nothing leaves your device.",
-  "keywords": ["image-compression", "png", "jpeg", "webp", "avif", "jpeg-xl", "svg", "webassembly", "pwa", "offline"],
+  "keywords": [
+    "image-compression",
+    "png",
+    "jpeg",
+    "webp",
+    "avif",
+    "jpeg-xl",
+    "svg",
+    "webassembly",
+    "pwa",
+    "offline"
+  ],
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "preview:lan": "vite preview --host"
+    "start": "node scripts/start.mjs",
+    "start:lan": "node scripts/start.mjs --lan",
+    "dev": "node scripts/start.mjs --dev",
+    "build": "vite build"
   },
   "dependencies": {
     "@jsquash/avif": "^2.0.0",
